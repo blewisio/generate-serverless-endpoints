@@ -2,7 +2,11 @@
   "name": "generate-serverless-endpoints",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "bin": {
+    "generate-serverless-endpoints": "index.js",
+    "generate-endpoints": "index.js",
+    "generate-endpoint": "index.js"
+  },
   "scripts": {
     "start": "node index.js",
     "lint": "npx eslint *.js"
