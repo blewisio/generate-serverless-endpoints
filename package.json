@@ -1,0 +1,25 @@
+{
+  "name": "generate-serverless-endpoints",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "npx eslint *.js"
+  },
+  "keywords": ["serverless", "generator", "api", "endpoint"],
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "dependencies": {
+    "camelcase": "^5.3.1",
+    "chalk": "^4.0.0",
+    "fs-jetpack": "^2.2.3",
+    "inquirer": "^7.1.0",
+    "loud-rejection": "^2.2.0",
+    "xregexp": "^4.3.0"
+  }
+}
