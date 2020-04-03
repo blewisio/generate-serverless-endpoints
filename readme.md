@@ -13,7 +13,7 @@ At the command line:
 $ generate-endpoints
 ```
 
-Example prompts1:
+Example prompts:
 ```
 jeff@amazon:~/my-lambda$ generate-endpoints 
 
