@@ -2,14 +2,14 @@
 
 ## Installation
 
-```
+```sh
 npm install --global generate-serverless-endpoints
 ```
 
 ## Usage
 
 At the command line:
-```
+```sh
 $ generate-endpoints
 ```
 
@@ -29,24 +29,41 @@ Example output:
 Copy and paste this into your serverless.yml file:
 
 functions:
-  getUsersSettings:
+  getUsersNotifications:
     events:
       - http:
           method: GET
-          path: /users/{id}/settings
+          path: /users/{userId}/notifications
+          handler: handler.getUsersNotifications
           private: true
           request:
             parameters:
               paths:
-                id: true
-  putUsersSettings:
+                userId: true
+  postUsersNotifications:
     events:
       - http:
-          method: PUT
-          path: /users/{id}/settings
+          method: POST
+          path: /users/{userId}/notifications
+          handler: handler.postUsersNotifications
           private: true
           request:
             parameters:
               paths:
-                id: true
+                userId: true
+
+
+Copy and paste these into your handler.js file:
+
+module.exports.getUsersNotifications = () => {
+  return {
+    statusCode: 200
+  };
+};
+
+module.exports.postUsersNotifications = () => {
+  return {
+    statusCode: 201
+  };
+};
 ```

@@ -27,6 +27,19 @@ const questions = [{
   default: true,
 }];
 
+const getParams = (route) => {
+  return xregexp.match(route, /\{\w+\}/g, 'all');
+};
+
+const getName = ({ method, route, params }) => {
+  let name = camelcase(`${method}-${route}`.replace(/\//g, '-'));
+  params.forEach((param) => {
+    name = name.replace(`-${param}`, '');
+  });
+
+  return name;
+};
+
 const logIntroduction = () => {
   console.log();
   console.log('Use {named} variables in the path to declare path parameters.');
@@ -40,19 +53,17 @@ const logEndpoints = ({ isPrivate, methods, route }) => {
   console.log('functions:');
 
   // ex. /users/{id}/settings/{setting}
-  const params = xregexp.match(route, /\{\w+\}/g, 'all');
+  const params = getParams(route);
 
   methods.forEach((method) => {
-    let name = camelcase(`${method}-${route}`.replace(/\//g, '-'));
-    params.forEach((param) => {
-      name = name.replace(`-${param}`, '');
-    });
+    const name = getName({ method, route, params });
 
     console.log(`  ${name}:
     events:
       - http:
           method: ${method}
           path: ${route}
+          handler: handler.${name}
           private: ${isPrivate}${params.length === 0 ? '' : `
           request:
             parameters:
@@ -66,6 +77,25 @@ const logEndpoints = ({ isPrivate, methods, route }) => {
   console.log();
 };
 
+const logHandlers = ({ methods, route }) => {
+  console.log();
+  console.log(chalk.yellow('Copy and paste this into your handler.js file:'));
+  console.log();
+
+  const params = getParams(route);
+  
+  methods.forEach((method) => {
+    const name = getName({ method, route, params });
+    console.log(`module.exports.${name} = () => {
+  return {
+    statusCode: ${method === 'POST' ? 201 : 200}
+  };
+};`);
+    console.log();
+  });
+};
+
+
 (async () => {
   logIntroduction();
 
@@ -76,4 +106,5 @@ const logEndpoints = ({ isPrivate, methods, route }) => {
   } = await inquirer.prompt(questions);
 
   logEndpoints({ isPrivate, methods, route });
+  logHandlers({ methods, route });
 })();
