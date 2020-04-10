@@ -1,6 +1,6 @@
 {
   "name": "generate-serverless-endpoints",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stub serverless API endpoints via command-line questionnaire",
   "bin": {
     "generate-serverless-endpoints": "index.js",

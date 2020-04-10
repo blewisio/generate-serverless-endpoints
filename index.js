@@ -9,6 +9,7 @@ const questions = [{
   name: 'route',
   type: 'input',
   message: 'What is the new endpoint\'s path?',
+  validate: x => !!x,
 }, {
   name: 'methods',
   type: 'checkbox',
@@ -20,6 +21,7 @@ const questions = [{
     'PATCH',
     'DELETE',
   ],
+  validate: x => x.length !== 0,
 }, {
   name: 'isPrivate',
   type: 'confirm',

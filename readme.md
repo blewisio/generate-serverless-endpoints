@@ -1,16 +1,12 @@
 # Generate Serverless Endpoints
 
-## Installation
-
-```sh
-npm install --global generate-serverless-endpoints
-```
+Generate boilerplate definitions for serverless API endpoints by answering questions.
 
 ## Usage
 
 At the command line:
 ```sh
-$ generate-endpoints
+$ npx generate-serverless-endpoints
 ```
 
 Example prompts:
