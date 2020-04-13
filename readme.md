@@ -26,22 +26,22 @@ Copy and paste this into your serverless.yml file:
 
 functions:
   getUsersNotifications:
+    handler: handler.getUsersNotifications
     events:
       - http:
           method: GET
           path: /users/{userId}/notifications
-          handler: handler.getUsersNotifications
           private: true
           request:
             parameters:
               paths:
                 userId: true
   postUsersNotifications:
+    handler: handler.postUsersNotifications
     events:
       - http:
           method: POST
           path: /users/{userId}/notifications
-          handler: handler.postUsersNotifications
           private: true
           request:
             parameters:

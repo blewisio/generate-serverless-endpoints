@@ -61,11 +61,11 @@ const logEndpoints = ({ isPrivate, methods, route }) => {
     const name = getName({ method, route, params });
 
     console.log(`  ${name}:
+    handler: handler.${name}
     events:
       - http:
           method: ${method}
           path: ${route}
-          handler: handler.${name}
           private: ${isPrivate}${params.length === 0 ? '' : `
           request:
             parameters:
