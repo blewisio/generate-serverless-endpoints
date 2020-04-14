@@ -88,9 +88,10 @@ const logHandlers = ({ methods, route }) => {
   
   methods.forEach((method) => {
     const name = getName({ method, route, params });
-    console.log(`module.exports.${name} = () => {
+    console.log(`module.exports.${name} = async () => {
   return {
-    statusCode: ${method === 'POST' ? 201 : 200}
+    statusCode: ${method === 'POST' ? 201 : 200},${method === 'GET' ? `
+    body: JSON.stringify({}),` : ''}
   };
 };`);
     console.log();

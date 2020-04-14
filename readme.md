@@ -51,15 +51,16 @@ functions:
 
 Copy and paste these into your handler.js file:
 
-module.exports.getUsersNotifications = () => {
+module.exports.getUsersNotifications = async () => {
   return {
-    statusCode: 200
+    statusCode: 200,
+    body: JSON.stringify({}),
   };
 };
 
-module.exports.postUsersNotifications = () => {
+module.exports.postUsersNotifications = async () => {
   return {
-    statusCode: 201
+    statusCode: 201,
   };
 };
 ```
