@@ -9,7 +9,7 @@ const questions = [{
   name: 'route',
   type: 'input',
   message: 'What is the new endpoint\'s path?',
-  validate: x => !!x,
+  validate: (x) => !!x,
 }, {
   name: 'methods',
   type: 'checkbox',
@@ -21,7 +21,7 @@ const questions = [{
     'PATCH',
     'DELETE',
   ],
-  validate: x => x.length !== 0,
+  validate: (x) => x.length !== 0,
 }, {
   name: 'isPrivate',
   type: 'confirm',
@@ -29,9 +29,7 @@ const questions = [{
   default: true,
 }];
 
-const getParams = (route) => {
-  return xregexp.match(route, /\{\w+\}/g, 'all');
-};
+const getParams = (route) => xregexp.match(route, /\{\w+\}/g, 'all');
 
 const getName = ({ method, route, params }) => {
   let name = camelcase(`${method}-${route}`.replace(/\//g, '-'));
@@ -85,7 +83,7 @@ const logHandlers = ({ methods, route }) => {
   console.log();
 
   const params = getParams(route);
-  
+
   methods.forEach((method) => {
     const name = getName({ method, route, params });
     console.log(`module.exports.${name} = async () => {
@@ -97,7 +95,6 @@ const logHandlers = ({ methods, route }) => {
     console.log();
   });
 };
-
 
 (async () => {
   logIntroduction();

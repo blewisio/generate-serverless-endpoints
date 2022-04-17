@@ -4,6 +4,8 @@
   "description": "Stub serverless API endpoints via command-line questionnaire",
   "bin": {
     "generate-serverless-endpoints": "index.js",
+    "generate-sls-endpoints": "index.js",
+    "generate-sls-endpoint": "index.js",
     "generate-endpoints": "index.js",
     "generate-endpoint": "index.js"
   },
@@ -21,16 +23,16 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.26.0"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
-    "chalk": "^4.0.0",
-    "fs-jetpack": "^2.2.3",
-    "inquirer": "^7.1.0",
+    "chalk": "^4.1.2",
+    "fs-jetpack": "^2.4.0",
+    "inquirer": "^7.3.3",
     "loud-rejection": "^2.2.0",
-    "xregexp": "^4.3.0"
+    "xregexp": "^4.4.1"
   }
 }
