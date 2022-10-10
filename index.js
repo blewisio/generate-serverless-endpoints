@@ -6,6 +6,16 @@ const xregexp = require('xregexp');
 require('loud-rejection/register');
 
 const questions = [{
+  name: 'eventType',
+  type: 'list',
+  message: 'Which event type?',
+  choices: [
+    'HTTP API',
+    'REST API',
+  ],
+  default: 'HTTP API',
+  validate: (x) => x.length !== 0,
+}, {
   name: 'route',
   type: 'input',
   message: 'What is the new endpoint\'s path?',
@@ -27,6 +37,7 @@ const questions = [{
   type: 'confirm',
   message: 'Is the endpoint private (requires API key)?',
   default: true,
+  when: (answers) => answers.eventType === 'REST API',
 }];
 
 const getParams = (route) => xregexp.match(route, /\{\w+\}/g, 'all');
@@ -46,7 +57,12 @@ const logIntroduction = () => {
   console.log();
 };
 
-const logEndpoints = ({ isPrivate, methods, route }) => {
+const logEndpoints = ({
+  eventType,
+  isPrivate,
+  methods,
+  route,
+}) => {
   console.log();
   console.log(chalk.yellow('Copy and paste this into your serverless.yml file:'));
   console.log();
@@ -61,10 +77,11 @@ const logEndpoints = ({ isPrivate, methods, route }) => {
     console.log(`  ${name}:
     handler: handler.${name}
     events:
-      - http:
+      - ${eventType === 'HTTP API' ? 'httpApi' : 'http'}:
           method: ${method}
-          path: ${route}
-          private: ${isPrivate}${params.length === 0 ? '' : `
+          path: ${route}${eventType === 'REST API' ? `
+          private: ${isPrivate}` : ''}
+          ${params.length === 0 ? '' : `
           request:
             parameters:
               paths:`}`);
@@ -100,11 +117,17 @@ const logHandlers = ({ methods, route }) => {
   logIntroduction();
 
   const {
+    eventType,
     isPrivate,
     methods,
     route,
   } = await inquirer.prompt(questions);
 
-  logEndpoints({ isPrivate, methods, route });
+  logEndpoints({
+    eventType,
+    isPrivate,
+    methods,
+    route,
+  });
   logHandlers({ methods, route });
 })();
